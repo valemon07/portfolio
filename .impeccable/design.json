@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-21T04:31:52+00:00",
+  "title": "Design System: Andres Valerio Montero",
+  "extensions": {
+    "colorMeta": {
+      "flight-paper": {
+        "role": "neutral",
+        "displayName": "Flight Paper",
+        "canonical": "oklch(95.9% 0.005 117.9)",
+        "tonalRamp": [
+          "oklch(15% 0.002 117.9)",
+          "oklch(25% 0.004 117.9)",
+          "oklch(36% 0.005 117.9)",
+          "oklch(47% 0.005 117.9)",
+          "oklch(58% 0.005 117.9)",
+          "oklch(70% 0.004 117.9)",
+          "oklch(82% 0.003 117.9)",
+          "oklch(95% 0.001 117.9)"
+        ]
+      },
+      "mission-navy": {
+        "role": "primary",
+        "displayName": "Mission Navy",
+        "canonical": "oklch(23.5% 0.062 260.9)",
+        "tonalRamp": [
+          "oklch(15% 0.027 260.9)",
+          "oklch(25% 0.044 260.9)",
+          "oklch(36% 0.062 260.9)",
+          "oklch(47% 0.062 260.9)",
+          "oklch(58% 0.062 260.9)",
+          "oklch(70% 0.053 260.9)",
+          "oklch(82% 0.032 260.9)",
+          "oklch(95% 0.009 260.9)"
+        ]
+      },
+      "binder-tab-orange": {
+        "role": "secondary",
+        "displayName": "Binder-Tab Orange",
+        "canonical": "oklch(67% 0.222 37.4)",
+        "tonalRamp": [
+          "oklch(15% 0.095 37.4)",
+          "oklch(25% 0.159 37.4)",
+          "oklch(36% 0.222 37.4)",
+          "oklch(47% 0.222 37.4)",
+          "oklch(58% 0.222 37.4)",
+          "oklch(70% 0.19 37.4)",
+          "oklch(82% 0.114 37.4)",
+          "oklch(95% 0.032 37.4)"
+        ]
+      },
+      "rule-grey": {
+        "role": "neutral",
+        "displayName": "Rule Grey",
+        "canonical": "oklch(66.1% 0.026 262.1)",
+        "tonalRamp": [
+          "oklch(15% 0.011 262.1)",
+          "oklch(25% 0.019 262.1)",
+          "oklch(36% 0.026 262.1)",
+          "oklch(47% 0.026 262.1)",
+          "oklch(58% 0.026 262.1)",
+          "oklch(70% 0.022 262.1)",
+          "oklch(82% 0.013 262.1)",
+          "oklch(95% 0.004 262.1)"
+        ]
+      },
+      "navy-soft": {
+        "role": "neutral",
+        "displayName": "Navy Soft",
+        "canonical": "oklch(39.9% 0.051 265)",
+        "tonalRamp": [
+          "oklch(15% 0.022 265)",
+          "oklch(25% 0.036 265)",
+          "oklch(36% 0.051 265)",
+          "oklch(47% 0.051 265)",
+          "oklch(58% 0.051 265)",
+          "oklch(70% 0.044 265)",
+          "oklch(82% 0.026 265)",
+          "oklch(95% 0.007 265)"
+        ]
+      },
+      "paper-soft": {
+        "role": "neutral",
+        "displayName": "Paper Soft",
+        "canonical": "oklch(84.6% 0.021 261.8)",
+        "tonalRamp": [
+          "oklch(15% 0.009 261.8)",
+          "oklch(25% 0.015 261.8)",
+          "oklch(36% 0.021 261.8)",
+          "oklch(47% 0.021 261.8)",
+          "oklch(58% 0.021 261.8)",
+          "oklch(70% 0.018 261.8)",
+          "oklch(82% 0.011 261.8)",
+          "oklch(95% 0.003 261.8)"
+        ]
+      },
+      "orange-ink": {
+        "role": "neutral",
+        "displayName": "Orange Ink",
+        "canonical": "oklch(21.8% 0.05 62.7)",
+        "tonalRamp": [
+          "oklch(15% 0.021 62.7)",
+          "oklch(25% 0.036 62.7)",
+          "oklch(36% 0.05 62.7)",
+          "oklch(47% 0.05 62.7)",
+          "oklch(58% 0.05 62.7)",
+          "oklch(70% 0.043 62.7)",
+          "oklch(82% 0.026 62.7)",
+          "oklch(95% 0.007 62.7)"
+        ]
+      },
+      "navy-line": {
+        "role": "neutral",
+        "displayName": "Navy Line",
+        "canonical": "oklch(39.6% 0.068 262.9)",
+        "tonalRamp": [
+          "oklch(15% 0.029 262.9)",
+          "oklch(25% 0.049 262.9)",
+          "oklch(36% 0.068 262.9)",
+          "oklch(47% 0.068 262.9)",
+          "oklch(58% 0.068 262.9)",
+          "oklch(70% 0.058 262.9)",
+          "oklch(82% 0.035 262.9)",
+          "oklch(95% 0.01 262.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name in the first viewport only."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Headline results in lane blocks; metric figures at 2.25rem."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles under a heavy rule."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Entry names and lane labels."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero statement, subtitles, skill items, contact link labels."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Highlights and prose, max 68ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rail nav, secondary actions, notes, stack lines."
+      },
+      "time-mark": {
+        "displayName": "Time Mark",
+        "purpose": "T+ elapsed-month marks in rows, rail marks, and the rail readout."
+      },
+      "time-detail": {
+        "displayName": "Time Detail",
+        "purpose": "Dates and periods beside a T+ mark."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rule-inset",
+        "value": "inset 0 0 0 3px var(--navy)",
+        "purpose": "Drawn 3px border on the outlined lane block; not elevation."
+      },
+      {
+        "name": "tab-ring",
+        "value": "0 0 0 2px var(--navy)",
+        "purpose": "Navy ring around the contact tab; becomes 6px behind a 3px paper outline on focus."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Rail span glide, tab widen, lane block reveal."
+      },
+      {
+        "name": "dur-fast",
+        "value": "160ms",
+        "purpose": "Fill inversions on hover (linear) and the readout colour change."
+      },
+      {
+        "name": "dur-move",
+        "value": "520ms",
+        "purpose": "Rail span gliding between entries."
+      },
+      {
+        "name": "lane-extend",
+        "value": "clip-path inset reveal, 900ms ease-out, delay 120ms + 140ms per lane",
+        "purpose": "The one authored load moment; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "single-column",
+        "value": "47.99rem"
+      },
+      {
+        "name": "rail-bar",
+        "value": "61.99rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single email action; orange fill inverting to navy on hover.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Email Andres</a>",
+      "css": ".ds-btn-primary{display:inline-block;padding:.8rem 1.4rem;background:var(--orange,#ff4f00);color:var(--navy,#0c1d3b);font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:1.0625rem;text-decoration:none;border-radius:0;transition:background-color 160ms linear,color 160ms linear}.ds-btn-primary:hover{background:var(--navy,#0c1d3b);color:var(--paper,#f1f2ee)}.ds-btn-primary:focus-visible{outline:3px solid var(--navy,#0c1d3b);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Link",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Text action beside the primary button; underline thickens on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">GitHub</a>",
+      "css": ".ds-link{font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:600;color:var(--navy,#0c1d3b);text-decoration:underline;text-decoration-thickness:.09em;text-underline-offset:.2em}.ds-link:hover{text-decoration-thickness:.18em}.ds-link:focus-visible{outline:3px solid var(--navy,#0c1d3b);outline-offset:3px}"
+    },
+    {
+      "name": "Lane Block",
+      "kind": "card",
+      "refersTo": "lane-block-orange",
+      "description": "Hero summary of an ongoing role: time detail, headline figure, caption, organization. Variants orange, navy, outlined; hover inverts.",
+      "html": "<div class=\"ds-lanes\"><a class=\"ds-block ds-block-0\" href=\"#\"><span class=\"ds-bt\">T+00 · Aug 2025 – Present</span><strong class=\"ds-bf\">1st of 47</strong><span class=\"ds-bc\">university teams</span></a><a class=\"ds-block ds-block-1\" href=\"#\"><span class=\"ds-bt\">T+09 · May 2026 – Present</span><strong class=\"ds-bf\">30%</strong><span class=\"ds-bc\">less handling time</span></a><a class=\"ds-block ds-block-2\" href=\"#\"><span class=\"ds-bt\">T+12 · Aug 2026 – Present</span><strong class=\"ds-bf\">~83%</strong><span class=\"ds-bc\">less analysis time</span></a></div>",
+      "css": ".ds-lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;background:var(--paper,#f1f2ee);padding:1rem}.ds-block{display:flex;flex-direction:column;gap:.25rem;padding:1rem 1rem 1.5rem;text-decoration:none;font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;transition:background-color 160ms linear,color 160ms linear}.ds-block-0{background:#ff4f00;color:#0c1d3b}.ds-block-1{background:#0c1d3b;color:#f1f2ee;margin-top:1.5rem}.ds-block-2{color:#0c1d3b;box-shadow:inset 0 0 0 3px #0c1d3b;margin-top:3rem}.ds-block-0:hover,.ds-block-2:hover{background:#0c1d3b;color:#f1f2ee}.ds-block-1:hover{background:#ff4f00;color:#0c1d3b}.ds-block:focus-visible{outline:3px solid #0c1d3b;outline-offset:3px}.ds-block-1:focus-visible{outline-color:#ff4f00}.ds-bt{font-family:'Courier Prime','Courier New',Courier,monospace;font-size:.8125rem;line-height:1.3;opacity:.8}.ds-bf{margin-top:.75rem;font-size:2.75rem;font-weight:800;font-stretch:80%;line-height:.95;letter-spacing:-.03em;white-space:nowrap}.ds-bc{font-weight:500;line-height:1.3}"
+    },
+    {
+      "name": "Mission Rail",
+      "kind": "nav",
+      "refersTo": "mission-rail",
+      "description": "Navy time rail: readout, month-ticked scale with orange active span, section nav.",
+      "html": "<aside class=\"ds-rail\"><p class=\"ds-ro\"><span class=\"ds-ron\">Now</span><strong class=\"ds-rot\">T+15</strong><span class=\"ds-rop\">Nov 2026</span></p><div class=\"ds-scale\"><span class=\"ds-span\"></span></div><ul class=\"ds-nav\"><li><a href=\"#\">Experience</a></li><li><a href=\"#\">Projects</a></li></ul></aside>",
+      "css": ".ds-rail{width:10.5rem;padding:1.5rem 1rem 1.5rem 1.5rem;background:#0c1d3b;color:#f1f2ee;font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;}.ds-ro{display:grid;gap:.25rem;margin:0;padding-top:.75rem;border-top:3px solid #f1f2ee}.ds-ron{font-size:.8125rem;font-weight:600}.ds-rot{font-family:'Courier Prime','Courier New',Courier,monospace;font-size:2rem;line-height:1;color:#ff4f00}.ds-rop{font-family:'Courier Prime','Courier New',Courier,monospace;font-size:.8125rem;color:#c5cddb}.ds-scale{position:relative;height:8rem;margin-block:1rem;border-left:2px solid #f1f2ee;background:repeating-linear-gradient(to bottom,#c5cddb 0,#c5cddb 1px,transparent 1px,transparent .5rem) left/.4rem 100% no-repeat}.ds-span{position:absolute;left:-2px;top:0;width:.5rem;height:55%;background:#ff4f00;transition:height 520ms cubic-bezier(.16,1,.3,1)}.ds-scale:hover .ds-span{height:80%}.ds-nav{list-style:none;margin:0;padding:.75rem 0 0;border-top:1px solid #33466b;display:grid;gap:.25rem}.ds-nav a{display:block;padding-block:.3rem;color:inherit;font-size:.9375rem;font-weight:600;text-decoration:none}.ds-nav a:hover{color:#ff4f00}.ds-nav a:focus-visible{outline:3px solid #ff4f00;outline-offset:3px}"
+    },
+    {
+      "name": "Timeline Row",
+      "kind": "custom",
+      "description": "Detail unit: when column (T+ mark, period, span track) beside what column (title, subtitle, square-marked highlights).",
+      "html": "<article class=\"ds-row\"><div><p class=\"ds-t\">T+09</p><p class=\"ds-per\">May 2026 – Present</p><span class=\"ds-track\"></span></div><div><h3 class=\"ds-h3\">Entry name</h3><p class=\"ds-sub\">Role or tagline</p><ul class=\"ds-hl\"><li>A measured result, stated plainly.</li></ul></div></article>",
+      "css": ".ds-row{display:grid;grid-template-columns:minmax(9rem,12.5rem) minmax(0,1fr);gap:1.5rem 2rem;padding:2rem 1rem;background:#f1f2ee;color:#0c1d3b;border-top:1px solid #8a93a3;font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;}.ds-t{font-family:'Courier Prime','Courier New',Courier,monospace;margin:0 0 .5rem;font-size:1.75rem;font-weight:700;line-height:1;letter-spacing:-.02em}.ds-per{font-family:'Courier Prime','Courier New',Courier,monospace;margin:0;font-size:.9375rem;color:#3a4763}.ds-track{position:relative;display:block;max-width:11rem;height:.5rem;margin-block:.75rem;border-bottom:2px solid #0c1d3b}.ds-track::after{content:'';position:absolute;bottom:0;left:30%;width:70%;height:100%;background:#ff4f00}.ds-h3{margin:0;font-size:1.75rem;font-weight:800;font-stretch:96%;line-height:1.05;letter-spacing:-.02em}.ds-sub{margin:.5rem 0 0;font-size:1.25rem;font-weight:500;color:#3a4763}.ds-hl{margin:1.5rem 0 0;padding-left:1.15em;list-style:square}.ds-hl li::marker{color:#ff4f00}"
+    },
+    {
+      "name": "Contact Tab",
+      "kind": "button",
+      "refersTo": "contact-tab",
+      "description": "Fixed vertical orange tab on the right edge (desktop); widens and inverts on hover.",
+      "html": "<a class=\"ds-tab\" href=\"#\">Contact</a>",
+      "css": ".ds-tab{display:grid;place-items:center;width:3.5rem;padding:2rem 0;background:#ff4f00;color:#0c1d3b;font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:800;font-size:.9375rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;writing-mode:vertical-rl;box-shadow:0 0 0 2px #0c1d3b;transition:background-color 160ms linear,color 160ms linear,width 160ms cubic-bezier(.16,1,.3,1)}.ds-tab:hover{width:4rem;background:#0c1d3b;color:#f1f2ee}.ds-tab:focus-visible{outline:3px solid #f1f2ee;outline-offset:0;box-shadow:0 0 0 6px #0c1d3b}"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "description": "Headline under a 3px rule in the section's line colour; shown on the navy tone.",
+      "html": "<div class=\"ds-sec\"><h2 class=\"ds-h2\">Projects</h2></div>",
+      "css": ".ds-sec{padding:2rem 1.5rem;background:#0c1d3b;color:#f1f2ee}.ds-h2{margin:0;padding-top:1rem;border-top:3px solid #f1f2ee;font-family:'Archivo Variable','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:2.5rem;font-weight:800;font-stretch:96%;line-height:1;letter-spacing:-.025em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Flight Plan",
+    "overview": "The page is a mission planning sheet. Elapsed time is the organising axis: a navy rail down the left margin carries a month-ticked scale from T+00 to graduation, and every role, project, and degree is an activity placed on it with its own T+ mark, dated period, and a small track showing its span on the full scale. The rail is a live clock: as an entry crosses the reading line, or a lane block is hovered or focused, the rail draws that entry's span in orange and its readout switches to that elapsed time.\n\nThe material is flat printed ink on off-white plan paper. Square corners everywhere, heavy 3px navy rules to open each section, thin rules to separate rows, and solid fills in three tones only: paper, navy, orange. A heavy, slightly narrowed grotesque (Archivo) carries names and figures; a typewriter face (Courier Prime) carries time and nothing else. Density is generous: large type, wide section padding, one idea per row.\n\nSections change tone by swapping whole surfaces rather than adding decoration: paper for Experience, Skills and Education; full navy for Projects; full orange for Contact.",
+    "keyCharacteristics": [
+      "Time down the left margin; content reads forward in time, earliest first.",
+      "Three inks only (paper, navy, orange) plus tinted secondary text.",
+      "Zero radius, no blur, no gradient fills; depth is never simulated.",
+      "Heavy grotesque for names and figures, typewriter for time.",
+      "Hover and active states invert fills between orange and navy."
+    ],
+    "rules": [
+      {
+        "name": "The Orange Is Now Rule",
+        "body": "Orange means the present tense or the next action: the current span, the now marker, the primary contact path. It is never used for decoration or for a past, finished state.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tone Swap Rule",
+        "body": "Components read surface variables (background, foreground, soft foreground, line, soft line, accent, focus) and never hard-code a tone; a section changes world by setting paper, navy, or orange tone, which redefines all of them at once. On orange, the accent becomes navy.",
+        "section": "colors"
+      },
+      {
+        "name": "The Clock Face Rule",
+        "body": "Courier Prime sets time and only time: T+ marks, months, periods, the rail readout. Names, figures, headings, and prose are always Archivo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Ink Rule",
+        "body": "Nothing is lifted. Any box-shadow has zero blur and zero offset and acts as a rule or focus ring; any gradient has hard stops and acts as a ruled line or a solid column.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** place every activity on the shared time scale with a T+ mark, a period, and a span track.",
+      "**Do** use orange only for the present and the next action (Orange Is Now).",
+      "**Do** set every time value in Courier Prime and everything else in Archivo (Clock Face).",
+      "**Do** change a section's tone through the paper, navy, or orange tone, never by hard-coding colours inside a component.",
+      "**Do** signal hover and active states by inverting fills between orange and navy, over 160ms linear.",
+      "**Do** keep everything readable and still under reduced motion and without scripts."
+    ],
+    "donts": [
+      "**Don't** round corners or blur, offset, or soften any shadow.",
+      "**Don't** use gradient fills or translucency for depth; hard-stop gradients are for drawing rules and ticks only.",
+      "**Don't** add a fourth ink; secondary text is a tint of the surface it sits on.",
+      "**Don't** lay entries out as a grid of equal cards; the time axis organises the page."
+    ]
+  }
+}

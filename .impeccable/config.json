@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/challenger-magazine.html"
+        ],
+        "createdAt": "2026-11-17T04:27:03.228Z",
+        "reason": "agent decided: unchosen decision-round sketch, a throwaway fixture that never ships"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-11-17T04:27:03.233Z",
+        "reason": "agent decided: unchosen decision-round sketch, a throwaway fixture that never ships"
+      }
+    ]
+  }
+}

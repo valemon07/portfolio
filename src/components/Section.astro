@@ -1,0 +1,38 @@
+---
+/**
+ * A titled page section. `tone` picks the surface (paper, navy, or orange);
+ * everything inside reads the surface variables and follows.
+ */
+interface Props {
+  id: string;
+  title: string;
+  tone?: 'paper' | 'navy' | 'orange';
+}
+
+const { id, title, tone = 'paper' } = Astro.props;
+---
+
+<section id={id} class={`section tone-${tone}`} aria-labelledby={`${id}-title`}>
+  <h2 id={`${id}-title`}>{title}</h2>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding: var(--space-8) var(--gutter) var(--space-8);
+    padding-right: var(--gutter-end, var(--gutter));
+    background: var(--bg);
+    color: var(--fg);
+    scroll-margin-top: var(--bar-h, 0);
+  }
+
+  h2 {
+    margin-bottom: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--rule-heavy) solid var(--line);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    font-stretch: 96%;
+    letter-spacing: -0.025em;
+  }
+</style>

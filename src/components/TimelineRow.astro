@@ -1,0 +1,141 @@
+---
+/**
+ * One row of the plan: a time column on the left, whatever is slotted in on
+ * the right. Give it a `span` and it reports itself to the time rail.
+ */
+import type { Span } from '@lib/types';
+
+interface Props {
+  id?: string;
+  /** Elapsed-time mark, e.g. "T+09". */
+  t: string;
+  /** Date range, e.g. "May 2026 – Present". */
+  period: string;
+  /** Lines under the period: place, context, and so on. */
+  notes?: string[];
+  span?: Span;
+}
+
+const { id, t, period, notes = [], span } = Astro.props;
+---
+
+<article
+  class="row"
+  id={id}
+  data-span-row={span ? '' : undefined}
+  data-span-name={span?.name}
+  data-span-t={span?.t}
+  data-span-period={span?.period}
+  data-span-from={span?.from}
+  data-span-to={span?.to}
+  data-span-ongoing={span?.ongoing ? '' : undefined}
+>
+  <div class="when">
+    <p class="t">{t}</p>
+    <p class="period">{period}</p>
+    {
+      span && (
+        <span class="track" style={`--from:${span.from}; --to:${span.to};`} data-span-track aria-hidden="true" />
+      )
+    }
+    {notes.map((note) => <p class="note">{note}</p>)}
+  </div>
+  <div class="what">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: minmax(9rem, 12.5rem) minmax(0, 1fr);
+    gap: var(--space-5) var(--space-6);
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--line-soft);
+    scroll-margin-top: var(--bar-h, 0);
+  }
+
+  .row:first-of-type {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .row:last-of-type {
+    padding-bottom: 0;
+  }
+
+  .t {
+    font-family: var(--font-type);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-2);
+  }
+
+  .period {
+    font-family: var(--font-type);
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    color: var(--fg-soft);
+  }
+
+  /* This row's duration, drawn on the page's full time scale. */
+  .track {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 11rem;
+    height: 0.5rem;
+    margin-block: var(--space-3);
+    border-bottom: 2px solid var(--line);
+  }
+
+  .track::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: calc(var(--from) * 100%);
+    width: max(3px, calc((var(--to) - var(--from)) * 100%));
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .note {
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--fg-soft);
+  }
+
+  .what {
+    max-width: var(--measure);
+  }
+
+  @media (max-width: 47.99rem) {
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .when {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: 0 var(--space-4);
+    }
+
+    .t {
+      margin-bottom: 0;
+    }
+
+    .track,
+    .note {
+      grid-column: 1 / -1;
+    }
+
+    .track {
+      max-width: none;
+    }
+  }
+</style>

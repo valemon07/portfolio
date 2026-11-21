@@ -1,0 +1,67 @@
+---
+/**
+ * A ruled two-column table of labelled lists: skills by group, coursework,
+ * and similar reference facts.
+ */
+interface Props {
+  rows: { label: string; items: string[] }[];
+}
+
+const { rows } = Astro.props;
+---
+
+<dl class="table">
+  {
+    rows.map((row) => (
+      <div class="line">
+        <dt>{row.label}</dt>
+        <dd>
+          <ul>
+            {row.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .line {
+    display: grid;
+    grid-template-columns: minmax(9rem, 12.5rem) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .line:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  dt {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) 1.75em;
+    max-width: var(--measure);
+  }
+
+  li {
+    font-size: var(--text-md);
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  @media (max-width: 47.99rem) {
+    .line {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+/**
+ * Home page. Composition only: read content through src/lib/content, shape it
+ * into props, hand it to presentational components. No markup of its own
+ * beyond the page frame, and no styling beyond the frame's layout.
+ */
+import Contact from '@components/Contact.astro';
+import ContactTab from '@components/ContactTab.astro';
+import EntryBody from '@components/EntryBody.astro';
+import FactTable from '@components/FactTable.astro';
+import Hero from '@components/Hero.astro';
+import MissionRail from '@components/MissionRail.astro';
+import Section from '@components/Section.astro';
+import TimelineRow from '@components/TimelineRow.astro';
+import Base from '../layouts/Base.astro';
+import { getSiteContent } from '@lib/content';
+import { createTimeScale, formatMonth } from '@lib/time';
+
+const { profile, experience, projects, skills } = await getSiteContent();
+const { education } = profile;
+
+// The time scale runs from the earliest start on the page to graduation.
+const starts = [...experience, ...projects].map((entry) => entry.period.start).sort();
+const scale = createTimeScale(starts[0], education.graduation);
+
+// The plan reads forward in time, so rows run from the earliest start.
+const chronological = <T extends { period: { start: string } }>(entries: T[]) =>
+  [...entries].sort((a, b) => a.period.start.localeCompare(b.period.start));
+
+const experienceRows = chronological(experience).map((entry) => ({
+  ...entry,
+  anchor: `experience-${entry.id}`,
+  span: scale.span(entry.organization, entry.period.label, entry.period.start, entry.period.end),
+}));
+
+const projectRows = chronological(projects).map((entry) => ({
+  ...entry,
+  anchor: `project-${entry.id}`,
+  span: scale.span(entry.name, entry.period.label, entry.period.start, entry.period.end),
+  links: [
+    ...(entry.liveUrl ? [{ label: 'Live site', href: entry.liveUrl }] : []),
+    ...(entry.repoUrl ? [{ label: 'Source code', href: entry.repoUrl }] : []),
+  ],
+}));
+
+// Hero lanes: ongoing roles in the order they started, each with its lead result.
+const lanes = experienceRows
+  .filter((entry) => entry.period.ongoing && entry.metrics.length > 0)
+  .map((entry) => ({
+    label: entry.lane,
+    href: `#${entry.anchor}`,
+    figure: entry.metrics[0].value,
+    caption: entry.metrics[0].label,
+    organization: entry.organization,
+    span: entry.span,
+  }));
+
+// Rail marks: each distinct role start, then graduation.
+const roleStarts = [...new Set(experience.map((entry) => entry.period.start))].sort();
+const marks = [...roleStarts.map((month) => scale.mark(month)), scale.mark(education.graduation)];
+const now = scale.mark(scale.now);
+
+const sections = [
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#education', label: 'Education' },
+  { href: '#contact', label: 'Contact' },
+];
+
+const secondaryActions = [
+  ...profile.links.map((link) => ({ label: link.label, href: link.url })),
+  ...(profile.resumeUrl ? [{ label: 'Résumé (PDF)', href: profile.resumeUrl }] : []),
+];
+
+const factRows = [
+  ...skills.map((group) => ({ label: group.group, items: group.items })),
+  { label: 'Spoken languages', items: profile.spokenLanguages },
+  { label: 'Interests', items: profile.interests },
+];
+
+const title = `${profile.name} | ${profile.role}`;
+const description = `${profile.role} and ${profile.status}. Seeking ${profile.seeking.toLowerCase()}.`;
+---
+
+<Base title={title} description={description}>
+  <div class="frame">
+    <MissionRail
+      marks={marks}
+      now={now}
+      start={scale.start}
+      months={scale.months}
+      sections={sections}
+      homeLabel={profile.name}
+    />
+
+    <main class="plan">
+      <Hero
+        name={profile.name}
+        statements={[`${profile.role}.`, `${profile.status}, GPA ${education.gpa}.`, `Seeking ${profile.seeking.toLowerCase()}.`]}
+        primaryAction={{ label: `Email ${profile.givenName}`, href: `mailto:${profile.email}` }}
+        secondaryActions={secondaryActions}
+        lanes={lanes}
+      />
+
+      <Section id="experience" title="Experience">
+        {
+          experienceRows.map((entry) => (
+            <TimelineRow
+              id={entry.anchor}
+              t={entry.span.t}
+              period={entry.period.label}
+              notes={[entry.location]}
+              span={entry.span}
+            >
+              <EntryBody
+                title={entry.organization}
+                subtitle={entry.role}
+                highlights={entry.highlights}
+                stack={entry.stack}
+              />
+            </TimelineRow>
+          ))
+        }
+      </Section>
+
+      <Section id="projects" title="Projects" tone="navy">
+        {
+          projectRows.map((entry) => (
+            <TimelineRow
+              id={entry.anchor}
+              t={entry.span.t}
+              period={entry.period.label}
+              notes={[entry.context]}
+              span={entry.span}
+            >
+              <EntryBody
+                title={entry.name}
+                subtitle={entry.tagline}
+                highlights={entry.highlights}
+                stack={entry.stack}
+                links={entry.links}
+                image={entry.image}
+              />
+            </TimelineRow>
+          ))
+        }
+      </Section>
+
+      <Section id="skills" title="Skills">
+        <FactTable rows={factRows} />
+      </Section>
+
+      <Section id="education" title="Education">
+        <TimelineRow
+          t={scale.t(education.graduation)}
+          period={`Graduating ${education.graduationLabel}`}
+          notes={[education.location]}
+          span={scale.span(education.school, `Graduating ${formatMonth(education.graduation)}`, scale.start, education.graduation)}
+        >
+          <EntryBody
+            title={education.degree}
+            subtitle={`${education.school}, ${education.college}`}
+            lead="Relevant coursework"
+            highlights={education.coursework}
+            metrics={[{ value: education.gpa, label: 'GPA' }]}
+          />
+        </TimelineRow>
+      </Section>
+
+      <Section id="contact" title={`Seeking ${profile.seeking.toLowerCase()}.`} tone="orange">
+        <Contact
+          email={profile.email}
+          links={profile.links}
+          resumeUrl={profile.resumeUrl}
+          signoff={`${profile.name}, ${profile.location}`}
+        />
+      </Section>
+    </main>
+
+    <ContactTab href="#contact" label="Contact" />
+  </div>
+</Base>
+
+<style>
+  .frame {
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    align-items: start;
+    background: linear-gradient(to right, var(--navy) var(--rail-w), transparent 0);
+  }
+
+  .plan {
+    /* Keep content clear of the contact tab on the right edge. */
+    --gutter-end: calc(var(--tab-w) + var(--space-6));
+    min-width: 0;
+  }
+
+  @media (max-width: 61.99rem) {
+    .frame {
+      grid-template-columns: minmax(0, 1fr);
+      background: none;
+    }
+
+    .plan {
+      --gutter-end: var(--gutter);
+      --bar-h: 3.25rem;
+    }
+  }
+</style>

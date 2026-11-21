@@ -1,0 +1,452 @@
+---
+/**
+ * The time rail: a clock readout, the full time scale, and section links.
+ * Any element on the page carrying data-span-* attributes can drive it (see
+ * the script below); with no script it shows the scale and elapsed time so far.
+ */
+import type { ScaleMark } from '@lib/types';
+
+interface Props {
+  /** Labelled points on the scale. */
+  marks: ScaleMark[];
+  /** The present, shown as a marker and as the resting readout. */
+  now: ScaleMark;
+  /** First month on the scale, "YYYY-MM". */
+  start: string;
+  /** Whole months on the scale; draws one minor tick per month. */
+  months: number;
+  sections: { href: string; label: string }[];
+  homeLabel: string;
+}
+
+const { marks, now, start, months, sections, homeLabel } = Astro.props;
+---
+
+<aside
+  class="rail"
+  style={`--p0:0; --p1:${now.at}; --months:${months};`}
+  data-rail
+  data-scale-start={start}
+  data-scale-months={months}
+  data-rest-name="Now"
+  data-rest-t={now.t}
+  data-rest-period={now.label}
+  data-rest-to={now.at}
+>
+  <a class="home" href="#top">{homeLabel}</a>
+
+  <p class="readout" aria-hidden="true">
+    <span class="readout-name" data-readout="name">Now</span>
+    <strong class="readout-t" data-readout="t">{now.t}</strong>
+    <span class="readout-period" data-readout="period">{now.label}</span>
+  </p>
+
+  <div class="scale" aria-hidden="true">
+    <span class="span"></span>
+    {
+      marks.map((mark) => (
+        <span class="mark" style={`--at:${mark.at}`} data-end={mark.at >= 1 ? '' : undefined}>
+          <span class="mark-label">
+            <span class="mark-t">{mark.t}</span>
+            <span class="mark-date">{mark.label}</span>
+          </span>
+        </span>
+      ))
+    }
+    <span class="now" style={`--at:${now.at}`} data-now></span>
+  </div>
+
+  <nav class="nav" aria-label="Sections">
+    <ul>
+      {
+        sections.map((section) => (
+          <li>
+            <a href={section.href}>{section.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<script>
+  // Drives the rail from any element with data-span-from / data-span-to.
+  // Scrolling an entry to the reading line, or hovering / focusing a span
+  // link, shows that span; otherwise the rail rests on elapsed time so far.
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+
+  if (rail) {
+    const out = {
+      name: rail.querySelector<HTMLElement>('[data-readout="name"]'),
+      t: rail.querySelector<HTMLElement>('[data-readout="t"]'),
+      period: rail.querySelector<HTMLElement>('[data-readout="period"]'),
+    };
+    const rest = {
+      name: rail.dataset.restName ?? '',
+      t: rail.dataset.restT ?? '',
+      period: rail.dataset.restPeriod ?? '',
+      from: '0',
+      to: rail.dataset.restTo ?? '1',
+    };
+
+    // "Now" was frozen at build time; move it to the visitor's month, clamped
+    // to the scale. Build-time values stay as the no-script fallback.
+    const scaleStart = rail.dataset.scaleStart;
+    const scaleMonths = Number(rail.dataset.scaleMonths);
+    if (scaleStart && scaleMonths > 0) {
+      const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const [y, m] = scaleStart.split('-').map(Number);
+      const startIndex = y * 12 + (m - 1);
+      const today = new Date();
+      const todayIndex = today.getFullYear() * 12 + today.getMonth();
+      const elapsed = Math.min(Math.max(todayIndex - startIndex, 0), scaleMonths);
+      const nowIndex = startIndex + elapsed;
+      const at = String(elapsed / scaleMonths);
+
+      rest.t = `T+${String(elapsed).padStart(2, '0')}`;
+      rest.period = `${MONTHS[nowIndex % 12]} ${Math.floor(nowIndex / 12)}`;
+      rest.to = at;
+      rail.dataset.restT = rest.t;
+      rail.dataset.restPeriod = rest.period;
+      rail.dataset.restTo = at;
+      rail.querySelector<HTMLElement>('[data-now]')?.style.setProperty('--at', at);
+
+      for (const el of document.querySelectorAll<HTMLElement>('[data-span-ongoing]')) {
+        el.dataset.spanTo = at;
+        el.querySelector<HTMLElement>('[data-span-track]')?.style.setProperty('--to', at);
+      }
+    }
+
+    type Shown = typeof rest;
+    let scrolled: Shown = rest;
+
+    const show = (span: Shown) => {
+      rail.style.setProperty('--p0', span.from);
+      rail.style.setProperty('--p1', span.to);
+      if (out.name) out.name.textContent = span.name;
+      if (out.t) out.t.textContent = span.t;
+      if (out.period) {
+        // One unbreakable piece per date, so a range can only wrap after the dash.
+        const parts = span.period.split(' – ');
+        out.period.replaceChildren(
+          ...parts.flatMap((part, i) => {
+            const date = document.createElement('span');
+            date.className = 'readout-date';
+            date.textContent = i < parts.length - 1 ? `${part} –` : part;
+            return i ? [' ', date] : [date];
+          }),
+        );
+      }
+      rail.toggleAttribute('data-active', span !== rest);
+    };
+
+    const read = (el: HTMLElement): Shown => ({
+      name: el.dataset.spanName ?? '',
+      t: el.dataset.spanT ?? '',
+      period: el.dataset.spanPeriod ?? '',
+      from: el.dataset.spanFrom ?? '0',
+      to: el.dataset.spanTo ?? '1',
+    });
+
+    // Entries that own a stretch of the page: the one crossing the reading
+    // line (40% down the viewport) is the one on the clock.
+    const rows = [...document.querySelectorAll<HTMLElement>('[data-span-row]')];
+    const inView = new Set<HTMLElement>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) inView.add(entry.target as HTMLElement);
+          else inView.delete(entry.target as HTMLElement);
+        }
+        const current = rows.find((row) => inView.has(row));
+        scrolled = current ? read(current) : rest;
+        show(scrolled);
+      },
+      { rootMargin: '-40% 0px -60% 0px' },
+    );
+    rows.forEach((row) => observer.observe(row));
+    show(rest);
+
+    // Links that preview a span without scrolling to it.
+    for (const link of document.querySelectorAll<HTMLElement>('[data-span-link]')) {
+      const preview = () => show(read(link));
+      const restore = () => show(scrolled);
+      link.addEventListener('pointerenter', preview);
+      link.addEventListener('pointerleave', restore);
+      link.addEventListener('focus', preview);
+      link.addEventListener('blur', restore);
+    }
+  }
+</script>
+
+<style>
+  .rail {
+    --rail-fg: var(--paper);
+    --rail-soft: var(--paper-soft);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    padding: var(--space-5) var(--space-4) var(--space-5) var(--space-5);
+    overflow: hidden auto;
+    background: var(--navy);
+    color: var(--rail-fg);
+    --focus: var(--orange);
+  }
+
+  .home {
+    font-weight: 700;
+    font-size: var(--text-sm);
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .home:hover {
+    text-decoration: underline;
+  }
+
+  .readout {
+    display: grid;
+    gap: var(--space-1);
+    margin-top: var(--space-5);
+    padding-top: var(--space-3);
+    border-top: var(--rule-heavy) solid var(--rail-fg);
+  }
+
+  .readout-name {
+    min-height: 2.4em;
+    font-size: var(--text-xs);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .readout-t {
+    font-family: var(--font-type);
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: color var(--dur-fast) linear;
+  }
+
+  .readout-period :global(.readout-date) {
+    white-space: nowrap;
+  }
+
+  .rail[data-active] .readout-t {
+    color: var(--orange);
+  }
+
+  .readout-period {
+    min-height: 2.5em;
+    font-family: var(--font-type);
+    font-size: var(--text-xs);
+    line-height: 1.25;
+    color: var(--rail-soft);
+  }
+
+  /* The scale: one minor tick per month, labelled marks, the active span. */
+  .scale {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 16rem;
+    margin-block: var(--space-4);
+    border-left: 2px solid var(--rail-fg);
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--rail-soft) 0,
+        var(--rail-soft) 1px,
+        transparent 1px,
+        transparent calc(100% / var(--months))
+      )
+      left / 0.4rem 100% no-repeat;
+  }
+
+  .span {
+    position: absolute;
+    left: -2px;
+    top: calc(var(--p0) * 100%);
+    width: 0.5rem;
+    height: calc((var(--p1) - var(--p0)) * 100%);
+    min-height: 3px;
+    background: var(--orange);
+    transition:
+      top var(--dur-move) var(--ease-out),
+      height var(--dur-move) var(--ease-out);
+  }
+
+  /* Each mark is a rule across the rail, T+ above its date, hung beneath
+     the rule (the final mark sits on top of its rule instead). */
+  .mark {
+    position: absolute;
+    left: -2px;
+    right: 0;
+    top: calc(var(--at) * 100%);
+    height: 0;
+    white-space: nowrap;
+  }
+
+  .mark::before {
+    content: '';
+    display: block;
+    border-top: 2px solid var(--rail-fg);
+  }
+
+  .mark-label {
+    position: absolute;
+    left: var(--space-3);
+    top: 0.35rem;
+    display: grid;
+    gap: 0.2rem;
+    font-family: var(--font-type);
+    line-height: 1;
+  }
+
+  .mark[data-end] .mark-label {
+    top: auto;
+    bottom: 0.35rem;
+  }
+
+  .mark-t {
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+
+  .mark-date {
+    font-size: 0.75rem;
+    color: var(--rail-soft);
+  }
+
+  .now {
+    position: absolute;
+    left: -2px;
+    top: calc(var(--at) * 100%);
+    width: 1.1rem;
+    border-top: 2px solid var(--orange);
+  }
+
+  .nav ul {
+    display: grid;
+    gap: var(--space-1);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--navy-line);
+  }
+
+  .nav a {
+    display: block;
+    padding-block: 0.3rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .nav a:hover {
+    color: var(--orange);
+  }
+
+  /* Narrow screens: the rail lies down across the top. */
+  @media (max-width: 61.99rem) {
+    .rail {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-4);
+      height: auto;
+      padding: var(--space-3) var(--gutter);
+      overflow: visible;
+    }
+
+    .home,
+    .nav,
+    .readout-period,
+    .mark-label {
+      display: none;
+    }
+
+    .readout {
+      display: flex;
+      flex: 0 1 auto;
+      flex-direction: row-reverse;
+      align-items: baseline;
+      gap: var(--space-3);
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .readout-t {
+      font-size: 1.25rem;
+    }
+
+    .readout-name {
+      min-height: 0;
+      max-width: 11rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scale {
+      flex: 1 1 4rem;
+      min-height: 0;
+      height: 0.9rem;
+      margin: 0;
+      border-left: 0;
+      border-bottom: 2px solid var(--rail-fg);
+      background: repeating-linear-gradient(
+          to right,
+          var(--rail-soft) 0,
+          var(--rail-soft) 1px,
+          transparent 1px,
+          transparent calc(100% / var(--months))
+        )
+        bottom / 100% 0.35rem no-repeat;
+    }
+
+    .span {
+      top: auto;
+      bottom: -2px;
+      left: calc(var(--p0) * 100%);
+      width: calc((var(--p1) - var(--p0)) * 100%);
+      min-width: 3px;
+      height: 0.45rem;
+      min-height: 0;
+      transition:
+        left var(--dur-move) var(--ease-out),
+        width var(--dur-move) var(--ease-out);
+    }
+
+    .mark {
+      top: auto;
+      bottom: 0;
+      right: auto;
+      left: calc(var(--at) * 100%);
+      height: 0.9rem;
+      width: 0;
+    }
+
+    .mark::before {
+      width: 0;
+      height: 100%;
+      border-top: 0;
+      border-left: 2px solid var(--rail-fg);
+    }
+
+    .now {
+      top: 0;
+      bottom: -2px;
+      left: calc(var(--at) * 100%);
+      width: 0;
+      border-top: 0;
+      border-left: 2px solid var(--orange);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .span,
+    .readout-t {
+      transition: none;
+    }
+  }
+</style>

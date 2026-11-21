@@ -1,0 +1,92 @@
+/*
+ * Design tokens. The visual world lives here: change a value and every
+ * component follows. Components read these and the surface variables below;
+ * they never hard-code colour, type, or spacing.
+ */
+:root {
+  /* Colour */
+  --paper: #f1f2ee;
+  --navy: #0c1d3b;
+  --orange: #ff4f00;
+  --rule-grey: #8a93a3;
+  /* Secondary text, tinted from the surface it sits on. */
+  --navy-soft: #3a4763;
+  --paper-soft: #c5cddb;
+  --orange-ink: #2a1400;
+  --navy-line: #33466b;
+
+  /* Type */
+  --font-sans: 'Archivo Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Typewriter face: time marks and measurements only. */
+  --font-type: 'Courier Prime', 'Courier New', Courier, monospace;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.75rem;
+  --text-xl: clamp(2rem, 1.2rem + 3vw, 3.25rem);
+  --text-display: clamp(2.75rem, 0.6rem + 8.4vw, 7.375rem);
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+
+  /* Layout */
+  --rail-w: 10.5rem;
+  --tab-w: 3.5rem;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --measure: 68ch;
+  --rule-heavy: 3px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 160ms;
+  --dur-move: 520ms;
+
+  /* Surface variables: each section tone redefines these. */
+  --bg: var(--paper);
+  --fg: var(--navy);
+  --fg-soft: var(--navy-soft);
+  --line: var(--navy);
+  --line-soft: var(--rule-grey);
+  --accent: var(--orange);
+  --focus: var(--navy);
+}
+
+.tone-paper {
+  --bg: var(--paper);
+  --fg: var(--navy);
+  --fg-soft: var(--navy-soft);
+  --line: var(--navy);
+  --line-soft: var(--rule-grey);
+  --accent: var(--orange);
+  --focus: var(--navy);
+}
+
+.tone-navy {
+  --bg: var(--navy);
+  --fg: var(--paper);
+  --fg-soft: var(--paper-soft);
+  --line: var(--paper);
+  --line-soft: var(--navy-line);
+  --accent: var(--orange);
+  --focus: var(--orange);
+}
+
+.tone-orange {
+  --bg: var(--orange);
+  --fg: var(--navy);
+  --fg-soft: var(--orange-ink);
+  --line: var(--navy);
+  --line-soft: var(--navy);
+  --accent: var(--navy);
+  --focus: var(--navy);
+}

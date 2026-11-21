@@ -1,0 +1,81 @@
+---
+/**
+ * The binder tab on the right edge: a standing link to the contact section.
+ * Wide screens only; narrow screens have the hero action instead.
+ */
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="tab" href={href} data-contact-tab>{label}</a>
+
+<script>
+  // The tab points at the contact section, so it steps aside once that is on screen.
+  const tab = document.querySelector<HTMLAnchorElement>('[data-contact-tab]');
+  const target = tab && document.querySelector(tab.hash);
+
+  if (tab && target) {
+    new IntersectionObserver(([entry]) => tab.toggleAttribute('data-retired', entry.isIntersecting), {
+      rootMargin: '0px 0px -25% 0px',
+    }).observe(target);
+  }
+</script>
+
+<style>
+  .tab {
+    position: fixed;
+    top: 7.5rem;
+    right: 0;
+    z-index: 5;
+    display: none;
+    place-items: center;
+    width: var(--tab-w);
+    padding: var(--space-6) 0;
+    background: var(--orange);
+    color: var(--navy);
+    font-weight: 800;
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    writing-mode: vertical-rl;
+    box-shadow: 0 0 0 2px var(--navy);
+    transition:
+      background-color var(--dur-fast) linear,
+      color var(--dur-fast) linear,
+      width var(--dur-fast) var(--ease-out);
+  }
+
+  /* A two-colour ring, so focus shows over paper, navy, and orange alike. */
+  .tab:focus-visible {
+    outline: 3px solid var(--paper);
+    outline-offset: 0;
+    box-shadow: 0 0 0 6px var(--navy);
+  }
+
+  .tab[data-retired] {
+    visibility: hidden;
+  }
+
+  .tab:hover {
+    width: calc(var(--tab-w) + 0.5rem);
+    background: var(--navy);
+    color: var(--paper);
+  }
+
+  @media (min-width: 62rem) {
+    .tab {
+      display: grid;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab {
+      transition: none;
+    }
+  }
+</style>

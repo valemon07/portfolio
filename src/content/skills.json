@@ -1,0 +1,14 @@
+[
+  {
+    "group": "Languages",
+    "items": ["Java", "TypeScript/JavaScript", "Python", "C/C++", "SQL", "HTML", "CSS"]
+  },
+  {
+    "group": "Frameworks & Libraries",
+    "items": ["Spring Boot", "React", "Next.js", "Angular", "FastAPI", "Flask", "Electron", "OpenCV", "OpenGL", "ROS"]
+  },
+  {
+    "group": "Tools & Infrastructure",
+    "items": ["Claude Code", "Docker", "AWS (S3, IAM)", "Git/GitHub (CI/CD)", "PostgreSQL", "UML", "JUnit", "Jira"]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "Grounds Access",
+  "tagline": "Accessibility Barrier Tracker",
+  "context": "Software Engineering Project",
+  "start": "2026-08",
+  "summary": "A web app for UVA students to report, track, and validate campus accessibility barriers.",
+  "highlights": [
+    "Developing a full-stack Django web app enabling UVA students to report, track, and validate campus accessibility barriers through community feedback.",
+    "Building PostgreSQL-backed authentication and role-based workflows with Google OAuth, AWS S3 storage, GitHub Actions CI/CD, and Heroku deployment."
+  ],
+  "stack": ["Django", "PostgreSQL", "Google OAuth", "AWS S3", "GitHub Actions", "Heroku"]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "Andres Valerio Montero",
+  "givenName": "Andres",
+  "role": "Full-stack software engineer",
+  "status": "Computer Science student at the University of Virginia",
+  "seeking": "Software engineering internships",
+  "location": "Charlottesville, VA",
+  "email": "hxu6rs@virginia.edu",
+  "links": [
+    {
+      "label": "GitHub",
+      "handle": "valemon07",
+      "url": "https://github.com/valemon07"
+    },
+    {
+      "label": "LinkedIn",
+      "handle": "andres-valemon",
+      "url": "https://www.linkedin.com/in/andres-valemon"
+    }
+  ],
+  "education": {
+    "school": "University of Virginia",
+    "college": "School of Engineering and Applied Science",
+    "location": "Charlottesville, VA",
+    "degree": "B.S. Computer Science",
+    "gpa": "4.0/4.0",
+    "graduation": "2028-05",
+    "coursework": [
+      "Software Engineering",
+      "Mobile Application Development",
+      "Software Development Essentials",
+      "Computer Systems and Organization I",
+      "Data Structures and Algorithms I & II",
+      "Discrete Mathematics I"
+    ]
+  },
+  "spokenLanguages": [
+    "Spanish (fluent)"
+  ],
+  "interests": [
+    "Space exploration",
+    "Books",
+    "Film",
+    "Photography"
+  ]
+}

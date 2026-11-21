@@ -1,0 +1,24 @@
+{
+  "organization": "Annie's Bakery",
+  "role": "Full-stack Software Engineer (Freelance)",
+  "lane": "Full-stack Engineer",
+  "location": "Costa Rica (Remote)",
+  "start": "2026-05",
+  "summary": "Built and deployed the inventory management system that replaced the bakery's paper-based tracking.",
+  "highlights": [
+    "Architected and deployed a full-stack inventory management system using React, FastAPI, Python, and PostgreSQL, replacing paper-based inventory tracking and reducing order handling time by 30%.",
+    "Designed RESTful APIs and PostgreSQL database schemas to centralize inventory and order data, enabling real-time stock tracking and replacing manual recordkeeping workflows."
+  ],
+  "metrics": [
+    {
+      "value": "30%",
+      "label": "less order handling time"
+    }
+  ],
+  "stack": [
+    "React",
+    "FastAPI",
+    "Python",
+    "PostgreSQL"
+  ]
+}

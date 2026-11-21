@@ -1,0 +1,26 @@
+{
+  "organization": "Omni-Reality and Cognition Lab (UVA)",
+  "role": "Research Assistant",
+  "lane": "Research Assistant",
+  "location": "Charlottesville, VA",
+  "start": "2026-08",
+  "summary": "Builds and evaluates an LLM pipeline that classifies research responses.",
+  "highlights": [
+    "Developed an LLM-based classification pipeline using Llama and Qwen, optimizing prompts and context to classify research responses and reduce analysis time by approximately 83%.",
+    "Evaluated LLM classification performance using 200+ annotated samples, iteratively refining category labels."
+  ],
+  "metrics": [
+    {
+      "value": "~83%",
+      "label": "less analysis time"
+    },
+    {
+      "value": "200+",
+      "label": "annotated samples used for evaluation"
+    }
+  ],
+  "stack": [
+    "Llama",
+    "Qwen"
+  ]
+}

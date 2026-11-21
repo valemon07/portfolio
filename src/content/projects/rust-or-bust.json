@@ -1,0 +1,27 @@
+{
+  "name": "Rust or Bust!",
+  "tagline": "A Fast Image Corrosion Quantifier",
+  "context": "UVA Materials Science Department",
+  "start": "2026-01",
+  "end": "2026-04",
+  "summary": "A desktop application that automates metal surface analysis for the UVA Materials Science Department.",
+  "repoUrl": "https://github.com/valemon07/RustOrBustApp",
+  "highlights": [
+    "Engineered a desktop application using Agile Development methodologies for the UVA Materials Science Department, automating metal surface analysis and achieving 99% accuracy in pitting detection.",
+    "Constructed computer vision pipelines in Python and OpenCV that generated rust/corrosion visualizations 25–30% faster than manual laboratory processing."
+  ],
+  "metrics": [
+    {
+      "value": "99%",
+      "label": "accuracy in pitting detection"
+    },
+    {
+      "value": "25–30%",
+      "label": "faster than manual laboratory processing"
+    }
+  ],
+  "stack": [
+    "Python",
+    "OpenCV"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Lumen Images",
+  "tagline": "AI Image Insights",
+  "context": "Personal Project",
+  "start": "2026-05",
+  "end": "2026-08",
+  "summary": "A full-stack image analysis platform that extracts contextual visual insights from uploaded images.",
+  "highlights": [
+    "Developed a full-stack image analysis platform using Next.js that leverages Google Gemini API to automatically extract contextual visual insights from user-uploaded images.",
+    "Implemented secure cloud storage workflows with AWS S3 and strict IAM role-based policies to protect media uploads and limit API credential exposure."
+  ],
+  "stack": ["Next.js", "Google Gemini API", "AWS S3", "AWS IAM"]
+}

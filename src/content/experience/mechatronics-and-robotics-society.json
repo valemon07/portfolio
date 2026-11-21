@@ -1,0 +1,34 @@
+{
+  "organization": "Mechatronics and Robotics Society",
+  "role": "UI Team Leader; Software Subteam Mentor",
+  "lane": "UI Team Leader",
+  "location": "Charlottesville, VA",
+  "start": "2025-08",
+  "summary": "Leads the UI team for the university's Lunabotics robot and mentors incoming software engineers.",
+  "highlights": [
+    "Contributed to a 1st-place finish among 47 university teams at NASA's Lunabotics Competition by developing the competition web UI and supporting breadcrumb-based autonomous navigation.",
+    "Engineered a real-time ROS node in C++ to monitor IMU accelerometer data, alerting drivers to dangerous conditions and triggering a software safety stop when thresholds were exceeded.",
+    "Developed a web-based driving interface connected to an NVIDIA Jetson through WebSockets and a custom ROS networking node, streaming camera views, robot temperature, and autonomy status during competition.",
+    "Mentored 8 incoming software engineers through C++ and ROS technical onboarding, increasing year-over-year software-team retention by 10%."
+  ],
+  "metrics": [
+    {
+      "value": "1st of 47",
+      "label": "university teams, NASA Lunabotics Competition"
+    },
+    {
+      "value": "8",
+      "label": "software engineers mentored"
+    },
+    {
+      "value": "+10%",
+      "label": "year-over-year software-team retention"
+    }
+  ],
+  "stack": [
+    "C++",
+    "ROS",
+    "WebSockets",
+    "NVIDIA Jetson"
+  ]
+}
